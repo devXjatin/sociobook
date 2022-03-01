@@ -1,5 +1,5 @@
 const Post = require('../model/post');
-
+const User = require('../model/user')
 exports.createPost = async(req, res)=>{
     try {
         const newPostData ={
@@ -11,10 +11,14 @@ exports.createPost = async(req, res)=>{
             },
             owner:req.user._id
         }
-        const newPost = await Post.create(newPostData);
+        const post = await Post.create(newPostData);
+        const user = await User.findById(req.user._id);
+        console.log(post._id);
+        user.posts.push(post._id);
+        await user.save();
         res.status(201).json({
             success:true,
-            post:newPost
+            post
         })
         
     } catch (err) {
