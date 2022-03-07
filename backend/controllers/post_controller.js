@@ -29,10 +29,51 @@ exports.createPost = async(req, res)=>{
     }
 }
 
+exports.deletePost = async(req, res)=>{
+    console.log(req.params.id)
+    try {
+        const post = await Post.findById(req.params.id);
+        
+        if(!post){
+            return res.status(404).json({
+                success:false,
+                message:"Post Not Found"
+            })
+        }
+
+        //user is not authorised
+        if(post.owner.toString() !== req.user._id.toString()){
+            return res.status(401).json({
+                success:false,
+                message:"Unauthorised"
+            })
+        }
+        
+        // Delete Post
+        await post.remove();
+
+        //remove post id from user model
+        const user = await User.findById(req.user._id);
+        user.posts.pull(req.params.id);
+        await user.save();
+        return res.status(200).json({
+            success:true,
+            message:"Post Deleted"
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            message: error.message
+        })
+        
+    }
+}
+
+
 //create like and unlike controller
 exports.likeAndUnlikePost = async(req, res)=>{
-    console.log(req.params)
-    console.log(req.user._id)
+    
     try {
         const post = await Post.findById(req.params.id);
     if(!post){
