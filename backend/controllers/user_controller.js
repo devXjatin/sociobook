@@ -1,3 +1,4 @@
+const user = require("../model/user");
 const User = require("../model/user");
 
 //register user
@@ -25,11 +26,10 @@ exports.register = async (req, res) => {
     await user.save();
     let token = user.generateToken();
     const options = {
-      expires: new Date(Date.now() +60*60*10000),
+      expires: new Date(Date.now() + 60 * 60 * 10000),
       httpOnly: true,
     };
     token = "Bearer " + token;
-   
 
     res.status(200).cookie("token", token, options).json({
       success: true,
@@ -47,7 +47,6 @@ exports.register = async (req, res) => {
 //login user
 exports.login = async (req, res) => {
   try {
-    
     const { email, password } = req.body;
     let user = await User.findOne({ email }).select("+password");
     if (!user) {
@@ -70,12 +69,44 @@ exports.login = async (req, res) => {
       httpOnly: true,
     };
     token = "Bearer " + token;
-   
 
     res.status(200).cookie("token", token, options).json({
       success: true,
       user,
       token: token,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+//follow user
+exports.followUser = async (req, res) => {
+  try {
+    const userToFollow = await User.findById(req.params.id);
+    const userLoggedIn = await User.findById(req.user._id);
+    if (!userToFollow) {
+      return res.status(500).json({
+        success: false,
+        message: "User Not found",
+      });
+    }
+
+    //push follower id to logged in user following
+    userLoggedIn.following.push(userToFollow._id);
+
+    //push logged in user id to follower
+    userToFollow.followers.push(userLoggedIn._id);
+
+    await userLoggedIn.save();
+    await userToFollow.save();
+
+    res.status(200).json({
+      success: true,
+      message: "User Followed",
     });
   } catch (error) {
     res.status(500).json({
