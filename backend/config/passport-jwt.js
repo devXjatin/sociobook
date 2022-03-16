@@ -17,7 +17,8 @@ passport.use(new JWTStrategy(opts, function(jwt_payload, done){
         if(user){
             done(null, user);
         }else{
-            return done(null, false);
+            const options = "Please Login First"
+            return done(null, options);
         }
     })
 }))

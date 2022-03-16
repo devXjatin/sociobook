@@ -212,11 +212,14 @@ exports.deleteProfile = async(req, res)=>{
 
     const user = await User.findById(req.user._id);
     const posts = user.posts;
+    const followers = user.followers;
+    const userID = user._id;
+    const following = user.following
 
     await user.remove();
 
     //logout after deleting the profile
-    res.cookie("tokken", null,  { expires: new Date(Date.now()), httpOnly: true })
+    res.cookie("tokken", "",  { expires: new Date(Date.now()), httpOnly: true })
 
     //remove post associated with deleting user
     for(let i = 0; i< posts.length; i++){
@@ -224,9 +227,41 @@ exports.deleteProfile = async(req, res)=>{
       await post.remove();
     }
 
+    //remove user from followers following
+    for(let i = 0; i<followers.length;i++){
+      const follower = await User.findById(followers[i]);
+      follower.following.pull(userID);
+      await follower.save();
+    }
+
+    //remove user from following followers
+    for(let i = 0; i<following.length;i++){
+      const follows = await User.findById(following[i]);
+      follows.followers.pull(userID);
+      await follows.save();
+    }
+
     res.status(200).json({
       success:true,
       message:"Profile Deleted"
+    })
+    
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message:err.message
+    })
+    
+  }
+}
+
+//my profile
+exports.myProfile = async(req, res)=>{
+  try {
+    const user = await User.findById(req.user._id).populate("posts");
+    res.status(200).json({
+      success:true,
+      user,
     })
     
   } catch (err) {

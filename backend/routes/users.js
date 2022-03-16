@@ -25,4 +25,9 @@ router.route("/update/profile").put(passport.authenticate("jwt", {session:false}
 //delete profile
 router.route("/delete/me").delete(passport.authenticate("jwt", {session:false}), userController.deleteProfile);
 
+//my profile
+router.route("/me").get(passport.authenticate("jwt", {session:false}), userController.myProfile);
+
+
+
 module.exports = router;
