@@ -34,7 +34,7 @@ router
     postController.deletePost
   );
 
-//update the caption
-// router.route("/update/caption/:id").put(passport.authenticate("jwt", {session:false}), postController.updateCaption);
+//add or update the comment
+router.route("/comment/:id").put(passport.authenticate("jwt", {session:false}), postController.commentOnPost);
 
 module.exports = router;
