@@ -140,65 +140,67 @@ exports.followUser = async (req, res) => {
 };
 
 //update password
-exports.updatePassword = async(req, res)=>{
+exports.updatePassword = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("+password");
-    const {oldPassword, newPassword} =req.body
-    if(!oldPassword || !newPassword){
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
       return res.status(400).json({
-        success:false,
-        message:"Please Provide old and new password"
-      })
+        success: false,
+        message: "Please Provide old and new password",
+      });
     }
-    
+
     const isMatch = await user.matchPassword(oldPassword);
-    if(!isMatch){
+    if (!isMatch) {
       return res.status(400).json({
-        success:false,
-        message:"Incorrect Old Password"
-      })
+        success: false,
+        message: "Incorrect Old Password",
+      });
     }
 
     user.password = newPassword;
     await user.save();
     res.status(200).json({
-      success:true,
-      message:"Password Updated"
-    })
-
+      success: true,
+      message: "Password Updated",
+    });
   } catch (err) {
     res.status(500).json({
       success: false,
       message: err.message,
     });
   }
-}
+};
 
-//update profile 
-exports.updateProfile = async(req, res)=>{
+//update profile
+exports.updateProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
-    const { name, email} = req.body;
-    if(!name || !email){
+    const { name, email } = req.body;
+    if (!name && !email) {
       return res.status(400).json({
-        success:false, 
-        message:"Please provide name and email"
-      })
+        success: false,
+        message: "Please provide name and email",
+      });
     }
-    user.name = name;
-    user.email = email;
+    if (name) {
+      user.name = name;
+    }
+    if (email) {
+      user.email = email;
+    }
+
     await user.save();
 
     res.status(200).json({
-      success:true,
-      message:"Profile Updated"
-    })
-
+      success: true,
+      message: "Profile Updated",
+    });
   } catch (error) {
     res.status(500).json({
-      success:false,
-      message:error.message
-    })
-    
+      success: false,
+      message: error.message,
+    });
   }
-}
+};
