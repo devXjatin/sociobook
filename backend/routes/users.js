@@ -22,4 +22,7 @@ router.route("/update/password").put(passport.authenticate("jwt", {session:false
 //update user profile
 router.route("/update/profile").put(passport.authenticate("jwt", {session:false}), userController.updateProfile);
 
+//delete profile
+router.route("/delete/me").delete(passport.authenticate("jwt", {session:false}), userController.deleteProfile);
+
 module.exports = router;

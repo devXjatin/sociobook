@@ -1,6 +1,6 @@
-const res = require("express/lib/response");
-const user = require("../model/user");
+
 const User = require("../model/user");
+const Post = require("../model/post");
 
 //register user
 exports.register = async (req, res) => {
@@ -204,3 +204,36 @@ exports.updateProfile = async (req, res) => {
     });
   }
 };
+
+
+//delete profile
+exports.deleteProfile = async(req, res)=>{
+  try {
+
+    const user = await User.findById(req.user._id);
+    const posts = user.posts;
+
+    await user.remove();
+
+    //logout after deleting the profile
+    res.cookie("tokken", null,  { expires: new Date(Date.now()), httpOnly: true })
+
+    //remove post associated with deleting user
+    for(let i = 0; i< posts.length; i++){
+      const post = await Post.findById(posts[i]);
+      await post.remove();
+    }
+
+    res.status(200).json({
+      success:true,
+      message:"Profile Deleted"
+    })
+    
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message:err.message
+    })
+    
+  }
+}
