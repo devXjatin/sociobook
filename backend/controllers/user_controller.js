@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 const user = require("../model/user");
 const User = require("../model/user");
 
@@ -83,6 +84,17 @@ exports.login = async (req, res) => {
   }
 };
 
+//logout
+exports.logout = async (req, res) => {
+  res
+    .status(200)
+    .cookie("tokken", null, { expires: new Date(Date.now()), httpOnly: true })
+    .json({
+      success: true,
+      message: "Logged Out Successfully!",
+    });
+};
+
 //follow user
 exports.followUser = async (req, res) => {
   try {
@@ -126,3 +138,67 @@ exports.followUser = async (req, res) => {
     });
   }
 };
+
+//update password
+exports.updatePassword = async(req, res)=>{
+  try {
+    const user = await User.findById(req.user._id).select("+password");
+    const {oldPassword, newPassword} =req.body
+    if(!oldPassword || !newPassword){
+      return res.status(400).json({
+        success:false,
+        message:"Please Provide old and new password"
+      })
+    }
+    
+    const isMatch = await user.matchPassword(oldPassword);
+    if(!isMatch){
+      return res.status(400).json({
+        success:false,
+        message:"Incorrect Old Password"
+      })
+    }
+
+    user.password = newPassword;
+    await user.save();
+    res.status(200).json({
+      success:true,
+      message:"Password Updated"
+    })
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+}
+
+//update profile 
+exports.updateProfile = async(req, res)=>{
+  try {
+    const user = await User.findById(req.user._id);
+    const { name, email} = req.body;
+    if(!name || !email){
+      return res.status(400).json({
+        success:false, 
+        message:"Please provide name and email"
+      })
+    }
+    user.name = name;
+    user.email = email;
+    await user.save();
+
+    res.status(200).json({
+      success:true,
+      message:"Profile Updated"
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      success:false,
+      message:error.message
+    })
+    
+  }
+}
