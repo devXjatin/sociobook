@@ -28,6 +28,12 @@ router.route("/delete/me").delete(passport.authenticate("jwt", {session:false}),
 //my profile
 router.route("/me").get(passport.authenticate("jwt", {session:false}), userController.myProfile);
 
+//get User profile
+router.route("/user/:id").get(passport.authenticate("jwt", {session:false}), userController.getUserProfile);
+
+//get all the users
+router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getUsers);
+
 
 
 module.exports = router;

@@ -1,4 +1,3 @@
-
 const User = require("../model/user");
 const Post = require("../model/post");
 
@@ -205,63 +204,99 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-
 //delete profile
-exports.deleteProfile = async(req, res)=>{
+exports.deleteProfile = async (req, res) => {
   try {
-
     const user = await User.findById(req.user._id);
     const posts = user.posts;
     const followers = user.followers;
     const userID = user._id;
-    const following = user.following
+    const following = user.following;
 
     await user.remove();
 
     //logout after deleting the profile
-    res.cookie("tokken", "",  { expires: new Date(Date.now()), httpOnly: true })
+    res.cookie("tokken", "", { expires: new Date(Date.now()), httpOnly: true });
 
     //remove post associated with deleting user
-    for(let i = 0; i< posts.length; i++){
+    for (let i = 0; i < posts.length; i++) {
       const post = await Post.findById(posts[i]);
       await post.remove();
     }
 
     //remove user from followers following
-    for(let i = 0; i<followers.length;i++){
+    for (let i = 0; i < followers.length; i++) {
       const follower = await User.findById(followers[i]);
       follower.following.pull(userID);
       await follower.save();
     }
 
     //remove user from following followers
-    for(let i = 0; i<following.length;i++){
+    for (let i = 0; i < following.length; i++) {
       const follows = await User.findById(following[i]);
       follows.followers.pull(userID);
       await follows.save();
     }
 
     res.status(200).json({
-      success:true,
-      message:"Profile Deleted"
-    })
-    
+      success: true,
+      message: "Profile Deleted",
+    });
   } catch (err) {
     res.status(500).json({
-      success:false,
-      message:err.message
-    })
-    
+      success: false,
+      message: err.message,
+    });
   }
-}
+};
 
 //my profile
-exports.myProfile = async(req, res)=>{
+exports.myProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate("posts");
     res.status(200).json({
-      success:true,
+      success: true,
       user,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+//get user profile
+exports.getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).populate("posts");
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User Not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+
+//get all the users
+exports.getUsers = async(req, res)=>{
+  try {
+    const user = await User.find({});
+    res.status(200).json({
+      success:true,
+      user
     })
     
   } catch (err) {
