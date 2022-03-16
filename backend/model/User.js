@@ -50,7 +50,6 @@ userSchema.pre("save", async function(next){
 
 //match login password
 userSchema.methods.matchPassword = async function(password){
-    console.log(password, this.password)
     return await bycrypt.compareSync(password, this.password);
 }
 

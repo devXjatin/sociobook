@@ -1,5 +1,6 @@
 const Post = require('../model/post');
 const User = require('../model/user')
+
 exports.createPost = async(req, res)=>{
     try {
         const newPostData ={
@@ -30,7 +31,6 @@ exports.createPost = async(req, res)=>{
 }
 
 exports.deletePost = async(req, res)=>{
-    console.log(req.params.id)
     try {
         const post = await Post.findById(req.params.id);
         
@@ -115,5 +115,29 @@ exports.likeAndUnlikePost = async(req, res)=>{
             message: error.message
         })
     
+    }
+}
+
+//get post of following user
+exports.getPostFollowing = async(req, res)=>{
+    console.log(req.user)
+    try {
+        const user = await User.findById(req.user._id);
+        const posts = await Post.find({
+            owner:{
+                $in: user.following,
+            }
+        })
+        return res.status(200).json({
+            success:true,
+            posts,
+        })
+
+    } catch (err) {
+        res.status(500).json({
+            success:false,
+            message:err.message
+        })
+        
     }
 }
