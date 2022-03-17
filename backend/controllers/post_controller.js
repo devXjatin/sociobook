@@ -207,3 +207,60 @@ exports.commentOnPost = async (req, res) => {
     })
   }
 };
+
+
+//delete comment
+exports.deleteComment = async(req, res)=>{
+  try {
+
+    const post = await Post.findById(req.params.id);
+
+    //if post not found
+    if(!post){
+      return res.status(500).json({
+        success:false,
+        message:"Post Not Found"
+      })
+    }
+    //check if owner wants to delete the comment
+    if (post.owner.toString() === req.user._id.toString()) {
+      //if commentID is not provided
+      if(req.body.commentID === undefined){
+        return res.status(400).json({
+          success:false,
+          message:"CommentID is not provided"
+        })
+      }
+      post.comments.forEach((item, index)=>{
+        if(item._id.toString()=== req.body.commentID.toString()){
+          post.comments.splice(index, 1);
+        }
+      })
+      await post.save();
+      return res.status(200).json({
+        success:true,
+        message:"Selected Comment has deleted"
+      })
+      
+    } else {
+
+      // if the commented user deleted thier post
+      post.comments.forEach((item,index)=>{
+        if(item.user.toString()=== req.user._id.toString()){
+          return post.comments.splice(index, 1)
+        }
+      })
+    }
+    await post.save();
+    return res.status(200).json({
+      success:true,
+      message:"Your Comment has Deleted."
+    })
+    
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message:err.message
+    })
+  }
+}

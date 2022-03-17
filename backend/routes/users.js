@@ -34,6 +34,9 @@ router.route("/user/:id").get(passport.authenticate("jwt", {session:false}), use
 //get all the users
 router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getUsers);
 
+//forgot password
+router.route("/forgot/password").post(passport.authenticate("jwt", {session:false}), userController.forgotPassword);
+
 
 
 module.exports = router;

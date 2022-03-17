@@ -1,5 +1,6 @@
 const User = require("../model/user");
 const Post = require("../model/post");
+const {sendEmail} = require('../middleware/nodemailer')
 
 //register user
 exports.register = async (req, res) => {
@@ -289,21 +290,66 @@ exports.getUserProfile = async (req, res) => {
   }
 };
 
-
 //get all the users
-exports.getUsers = async(req, res)=>{
+exports.getUsers = async (req, res) => {
   try {
     const user = await User.find({});
     res.status(200).json({
-      success:true,
-      user
-    })
-    
+      success: true,
+      user,
+    });
   } catch (err) {
     res.status(500).json({
-      success:false,
-      message:err.message
-    })
-    
+      success: false,
+      message: err.message,
+    });
   }
-}
+};
+
+//forgot password
+exports.forgotPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User Not found",
+      });
+    }
+
+    const resetPasswordToken = user.getResetPasswordToken();
+
+    await user.save();
+
+    //create url for reset password
+    const resetURL = `${req.protocol}://${req.get(
+      "host"
+    )}/password/reset/${resetPasswordToken}`;
+
+    //create message
+    const message = `Reset Your password by clicking on the below link: \n\n ${resetURL}`;
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Reset Password",
+        message,
+      });
+      res.status(200).json({
+        success: true,
+        message: `Email has sent to ${user.email}`,
+      });
+    } catch (error) {
+      user.resetPasswordToken = undefined;
+      user.resetTokenExpire = undefined;
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};

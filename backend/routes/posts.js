@@ -25,8 +25,9 @@ router
   .get(
     passport.authenticate("jwt", { session: false }),
     postController.likeAndUnlikePost
-  ).put(
-    passport.authenticate("jwt", {session:false}),
+  )
+  .put(
+    passport.authenticate("jwt", { session: false }),
     postController.updateCaption
   )
   .delete(
@@ -35,6 +36,15 @@ router
   );
 
 //add or update the comment
-router.route("/comment/:id").put(passport.authenticate("jwt", {session:false}), postController.commentOnPost);
+router
+  .route("/comment/:id")
+  .put(
+    passport.authenticate("jwt", { session: false }),
+    postController.commentOnPost
+  )
+  .delete(
+    passport.authenticate("jwt", { session: false }),
+    postController.deleteComment
+  );
 
 module.exports = router;

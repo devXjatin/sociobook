@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bycrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config({path:"../config/config.env"})
+const crypto = require('crypto')
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -35,7 +36,9 @@ const userSchema = new mongoose.Schema({
     following:[{
         type:mongoose.Schema.Types.ObjectId,
             ref:'User'
-    }]
+    }],
+    resetPasswordToken: String,
+    resetTokenExpire:Date
 
 })
 
@@ -63,6 +66,14 @@ userSchema.methods.generateToken =  function(){
     }, process.env.JWT_SECRET, {expiresIn: '1h'} );
 }
 
+//generate reset password token
+userSchema.methods.getResetPasswordToken = function(){
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    
+    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+    this.resetTokenExpire = Date.now() + 5 *60 * 1000;
+    return resetToken;
+}
 
 
 module.exports = mongoose.model("User", userSchema);
