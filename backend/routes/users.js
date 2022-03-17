@@ -35,7 +35,10 @@ router.route("/user/:id").get(passport.authenticate("jwt", {session:false}), use
 router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getUsers);
 
 //forgot password
-router.route("/forgot/password").post(passport.authenticate("jwt", {session:false}), userController.forgotPassword);
+router.route("/forgot/password").post(userController.forgotPassword);
+
+//reset password 
+router.route("/password/reset/:token").put(userController.resetPassword);
 
 
 

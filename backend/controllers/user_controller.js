@@ -1,6 +1,7 @@
 const User = require("../model/user");
 const Post = require("../model/post");
-const {sendEmail} = require('../middleware/nodemailer')
+const { sendEmail } = require("../middleware/nodemailer");
+const crypto = require("crypto");
 
 //register user
 exports.register = async (req, res) => {
@@ -324,7 +325,7 @@ exports.forgotPassword = async (req, res) => {
     //create url for reset password
     const resetURL = `${req.protocol}://${req.get(
       "host"
-    )}/password/reset/${resetPasswordToken}`;
+    )}/user/password/reset/${resetPasswordToken}`;
 
     //create message
     const message = `Reset Your password by clicking on the below link: \n\n ${resetURL}`;
@@ -346,6 +347,40 @@ exports.forgotPassword = async (req, res) => {
         message: error.message,
       });
     }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+//reset password
+exports.resetPassword = async (req, res) => {
+  try {
+    const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetTokenExpire: { $gt: Date.now() },
+    });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Token is Invalid or Expire",
+      });
+    }
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetTokenExpire = undefined;
+    await user.save();
+    res.status(200).json({
+      success: true,
+      message: "Password Updated",
+    });
   } catch (err) {
     res.status(500).json({
       success: false,
