@@ -1,7 +1,14 @@
-import React from "react";
+import React,{useEffect} from "react";
 import User from "../User/User";
 import Post from "../Post/Post";
+import {useDispatch} from "react-redux"
+import { getFollowingPost } from "../../Actions/User";
 const Home = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getFollowingPost())
+    },[])
+
   return (
     <div className="home">
       <div className="homeLeft">

@@ -109,18 +109,18 @@ exports.likeAndUnlikePost = async (req, res) => {
 
 //get post of following user
 exports.getPostFollowing = async (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   try {
     const user = await User.findById(req.user._id);
     const posts = await Post.find({
       owner: {
-        $in: user.following,
+        $in: user.following
       },
     });
+    // console.log(posts);
     return res.status(200).json({
       success: true,
-      posts,
-    });
+      posts: posts.reverse()    });
   } catch (err) {
     res.status(500).json({
       success: false,

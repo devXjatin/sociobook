@@ -1,8 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
 import { Typography, Avatar, Button } from "@mui/material";
-import {MoreVert, Favorite, FavoriteBorder, ChatBubbleOutline, DeleteOutline} from "@mui/icons-material"
+import {
+  MoreVert,
+  Favorite,
+  FavoriteBorder,
+  ChatBubbleOutline,
+  DeleteOutline,
+} from "@mui/icons-material";
 const Post = ({
   postId,
   caption,
@@ -15,17 +21,21 @@ const Post = ({
   isDelete = false,
   isAccount = false,
 }) => {
+  const [liked, setLiked] = useState(false);
 
-    const[liked, setLiked] = useState(false);
-    
-    //like handler
-    const handleLike=()=>{
-        setLiked(!liked)
-    }
+  //like handler
+  const handleLike = () => {
+    setLiked(!liked);
+  };
 
   return (
     <div className="post">
-      <div className="postHeader"></div>
+      <div className="postHeader">
+          {
+              isAccount ? (<Button><MoreVert/></Button>):null
+          }
+      </div>
+      <img src={postImage} alt="Post" />
 
       <div className="postDetails">
         <Avatar
@@ -47,7 +57,7 @@ const Post = ({
           {caption}
         </Typography>
       </div>
-      <img src={postImage} alt="Post" />
+     
       <button
         style={{
           border: "none",
@@ -59,17 +69,17 @@ const Post = ({
         <Typography>5 Likes</Typography>
       </button>
       <div className="postFooter">
-          <Button onClick={handleLike}>
-              {
-                  liked ? <Favorite style={{color:"red"}}/>:<FavoriteBorder/>
-              }
-          </Button>
+        <Button onClick={handleLike}>
+          {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
+        </Button>
+        <Button>
+          <ChatBubbleOutline />
+        </Button>
+        {isDelete ? (
           <Button>
-              <ChatBubbleOutline/>
+            <DeleteOutline />
           </Button>
-          <Button>
-              <DeleteOutline/>
-          </Button>
+        ) : null}
       </div>
     </div>
   );
