@@ -28,7 +28,7 @@ export const userReducer = createReducer(initialState, {
     state.error = action.payload;
   },
   LoadUserRequest: (state) => {
-    state.loadign = true;
+    state.loading = true;
   },
   LoadUserSuccess: (state, action) => {
     state.loading = false;
