@@ -43,6 +43,7 @@ export const loadUser = () => async (dispatch) => {
             'Authorization': localStorage.getItem('token')
         }
       });
+      console.log(data);
   
       dispatch({
         type: "LoadUserSuccess",

@@ -3,7 +3,8 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Login from "./Components/Login/Login";
-import { useDispatch } from "react-redux";
+import Home from "./Components/Home/Home";
+import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./Actions/User";
 
 function App() {
@@ -13,11 +14,15 @@ function App() {
     dispatch(loadUser());
   }, []);
 
+  const {isAuthenticated} = useSelector((state) => state.user);
+
   return (
     <Router>
-      <Header />
+      {
+        isAuthenticated && <Header />
+      }
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={isAuthenticated?<Home/>:<Login/>} />
       </Routes>
     </Router>
   );
