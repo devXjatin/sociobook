@@ -109,7 +109,6 @@ exports.likeAndUnlikePost = async (req, res) => {
 
 //get post of following user
 exports.getPostFollowing = async (req, res) => {
-  // console.log(req.user);
   try {
     const user = await User.findById(req.user._id);
     const posts = await Post.find({
