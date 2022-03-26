@@ -61,7 +61,7 @@ export const postOfFollowingReducer = createReducer({}, {
 
   postOfFollowingSuccess: (state, action) => {
     state.loading=false;
-    state.post = action.payload
+    state.posts = action.payload
   },
 
   postOfFollowingFailure: (state, action) => {
