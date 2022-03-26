@@ -37,7 +37,8 @@ const Home = () => {
               />
             );
           })
-        ) : (
+        ) :
+         (
           <Typography variant="h6">No Posts Yet</Typography>
         )}
       </div>
