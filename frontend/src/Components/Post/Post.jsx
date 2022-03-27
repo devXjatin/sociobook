@@ -9,9 +9,9 @@ import {
   ChatBubbleOutline,
   DeleteOutline,
 } from "@mui/icons-material";
-import {useDispatch, useSelector} from "react-redux"
-import {likePost} from "../../Actions/Post";
-import {getFollowingPost} from "../../Actions/User";
+import { useDispatch, useSelector } from "react-redux";
+import { addCommentOnPost, likePost } from "../../Actions/Post";
+import { getFollowingPost } from "../../Actions/User";
 import User from "../User/User";
 
 const Post = ({
@@ -28,41 +28,47 @@ const Post = ({
 }) => {
   const [liked, setLiked] = useState(false);
   const [likesUser, setLikesUser] = useState(false);
-  
+  const [commentValue, setCommentValue] = useState("");
+  const [commentToggle, setCommentToggle] = useState(false);
+
   const dispatch = useDispatch();
-  
-  const {user} = useSelector(state=>state.user)
+
+  const { user } = useSelector((state) => state.user);
 
   //like handler
   const handleLike = async () => {
     setLiked(!liked);
     await dispatch(likePost(postId));
-    
-    if(isAccount){
-      console.log("My post")
-    }else{
+
+    if (isAccount) {
+      console.log("My post");
+    } else {
       dispatch(getFollowingPost());
     }
-
-    
   };
 
-  useEffect(()=>{
-    likes.forEach((item)=>{
-      if(item._id === user._id){
+  //comment handler
+  const addCommentHandler = (e) => {
+    e.preventDefault();
+    dispatch(addCommentOnPost(postId, commentValue));
+  }
+
+  useEffect(() => {
+    likes.forEach((item) => {
+      if (item._id === user._id) {
         setLiked(true);
       }
-    })
-    
-
-  },[likes, user._id]);
+    });
+  }, [likes, user._id]);
 
   return (
     <div className="post">
       <div className="postHeader">
-          {
-              isAccount ? (<Button><MoreVert/></Button>):null
-          }
+        {isAccount ? (
+          <Button>
+            <MoreVert />
+          </Button>
+        ) : null}
       </div>
       <img src={postImage} alt="Post" />
 
@@ -86,7 +92,7 @@ const Post = ({
           {caption}
         </Typography>
       </div>
-     
+
       <button
         style={{
           border: "none",
@@ -94,7 +100,7 @@ const Post = ({
           cursor: "pointer",
           margin: "1vmax 2vmax",
         }}
-        onClick={()=> setLikesUser(!likesUser)}
+        onClick={() => setLikesUser(!likesUser)}
         disabled={likes.length === 0 ? true : false}
       >
         <Typography>{likes.length} Likes</Typography>
@@ -103,7 +109,7 @@ const Post = ({
         <Button onClick={handleLike}>
           {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
         </Button>
-        <Button>
+        <Button onClick={()=>setCommentToggle(!commentToggle)}>
           <ChatBubbleOutline />
         </Button>
         {isDelete ? (
@@ -112,23 +118,40 @@ const Post = ({
           </Button>
         ) : null}
       </div>
-      <Dialog open={likesUser} onClose={()=>setLikesUser(!likesUser)}>
+
+      {/* //Liked user dialogBox */}
+      <Dialog open={likesUser} onClose={() => setLikesUser(!likesUser)}>
+  
         <div className="dialogBox">
-          {
-            likes.map((like)=>{
-              return(
-                <User
+        <Typography variant="h4">Liked By</Typography>
+          {likes.map((like) => {
+            return (
+              <User
                 key={like._id}
                 userId={like._id}
                 name={like.name}
                 avatar={like.avatar.url}
-                
-                />
-              )
-            })
-          }
+              />
+            );
+          })}
         </div>
+      </Dialog>
 
+      {/* //comments user dialogBox */}
+      <Dialog open={commentToggle} onClose={() => setCommentToggle(!commentToggle)}>
+        <div className="dialogBox">
+        <Typography variant="h4">Comments</Typography>
+          <form className="commentForm" onSubmit={addCommentHandler}>
+            <input
+              type="text"
+              value={commentValue}
+              onChange={(e) => setCommentValue(e.target.value)}
+              required
+              placeholder="Comment here..."
+            />
+            <Button type="submit" variant="contained">Add</Button>
+          </form>
+        </div>
       </Dialog>
     </div>
   );
