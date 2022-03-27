@@ -5,25 +5,59 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers, getFollowingPost } from "../../Actions/User";
 import Loader from "../Loader/Loader";
 import { Typography } from "@mui/material";
+import {useAlert} from "react-alert"
 const Home = () => {
+  const alert = useAlert();
+  
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getFollowingPost());
-    dispatch(getAllUsers());
-  }, [dispatch]);
 
   const { loading, posts, error } = useSelector(
     (state) => state.postOfFollowing
   );
 
-  return loading ? (
+  const {
+    users,
+    loading: loadingUsers,
+    error: errorUsers,
+  } = useSelector((state) => state.allUsers);
+
+  const {error:likeError, message} = useSelector((state)=>state.like);
+
+  useEffect(() => {
+    dispatch(getFollowingPost());
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  //useEffect for show post liked and unliked notification
+  useEffect(()=>{
+    if(error){
+      alert.error(error);
+      dispatch({
+        type:"clearErrors"
+      })
+    }
+    if(likeError){
+      alert.error(likeError);
+      dispatch({
+        type:"clearErrors"
+      })
+    }
+    if(message){
+      alert.success(message)
+      dispatch({
+        type:"clearMessage"
+      })
+    }
+
+  },[alert, error, message])
+
+  return loading === true || loadingUsers === true ? (
     <Loader />
   ) : (
     <div className="home">
       <div className="homeLeft">
         {posts && posts.length > 0 ? (
           posts.map((post) => {
-            console.log(post.image.url);
             return (
               <Post
                 key={post._id}
@@ -43,13 +77,20 @@ const Home = () => {
         )}
       </div>
       <div className="homeRight">
-        <User
-          userId={"user._id"}
-          name={"user.name"}
-          avatar={
-            "https://coursebari.com/wp-content/uploads/2021/06/899048ab0cc455154006fdb9676964b3.jpg"
-          }
-        />
+        {users && users.length > 0 ? (
+          users.map((user) => {
+            return (
+              <User
+                key={user._id}
+                userId={user._id}
+                name={user.name}
+                avatar={user.avatar.url}
+              />
+            );
+          })
+        ) : (
+          <Typography variant="h6">No Users Yet</Typography>
+        )}
       </div>
     </div>
   );
