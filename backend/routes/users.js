@@ -22,6 +22,9 @@ router.route("/update/password").put(passport.authenticate("jwt", {session:false
 //update user profile
 router.route("/update/profile").put(passport.authenticate("jwt", {session:false}), userController.updateProfile);
 
+//get all the users
+router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getUsers);
+
 //delete profile
 router.route("/delete/me").delete(passport.authenticate("jwt", {session:false}), userController.deleteProfile);
 
@@ -31,8 +34,7 @@ router.route("/me").get(passport.authenticate("jwt", {session:false}), userContr
 //get User profile
 router.route("/:id").get(passport.authenticate("jwt", {session:false}), userController.getUserProfile);
 
-//get all the users
-router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getUsers);
+
 
 //forgot password
 router.route("/forgot/password").post(userController.forgotPassword);

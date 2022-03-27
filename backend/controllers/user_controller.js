@@ -294,10 +294,10 @@ exports.getUserProfile = async (req, res) => {
 //get all the users
 exports.getUsers = async (req, res) => {
   try {
-    const user = await User.find({});
+    const users = await User.find({});
     res.status(200).json({
       success: true,
-      user,
+      users,
     });
   } catch (err) {
     res.status(500).json({

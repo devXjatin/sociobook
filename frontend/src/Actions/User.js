@@ -80,3 +80,27 @@ export const getFollowingPost = () => async (dispatch) => {
     });
   }
 };
+
+//get all users
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "allUsersRequest",
+    });
+
+    const { data } = await axios.get("/user/users", {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+
+    dispatch({
+      type: "allUsersSuccess",
+      payload : data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: "allUsersFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+

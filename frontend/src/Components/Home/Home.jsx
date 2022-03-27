@@ -2,14 +2,15 @@ import React, { useEffect } from "react";
 import User from "../User/User";
 import Post from "../Post/Post";
 import { useDispatch, useSelector } from "react-redux";
-import { getFollowingPost } from "../../Actions/User";
+import { getAllUsers, getFollowingPost } from "../../Actions/User";
 import Loader from "../Loader/Loader";
 import { Typography } from "@mui/material";
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFollowingPost());
-  }, []);
+    dispatch(getAllUsers());
+  }, [dispatch]);
 
   const { loading, posts, error } = useSelector(
     (state) => state.postOfFollowing
