@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
 import { Link } from "react-router-dom";
-import { Typography, Avatar, Button } from "@mui/material";
+import { Typography, Avatar, Button, Dialog } from "@mui/material";
 import {
   MoreVert,
   Favorite,
@@ -11,6 +11,8 @@ import {
 } from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux"
 import {likePost} from "../../Actions/Post";
+import {getFollowingPost} from "../../Actions/User";
+import User from "../User/User";
 
 const Post = ({
   postId,
@@ -25,15 +27,24 @@ const Post = ({
   isAccount = false,
 }) => {
   const [liked, setLiked] = useState(false);
+  const [likesUser, setLikesUser] = useState(false);
   
   const dispatch = useDispatch();
   
   const {user} = useSelector(state=>state.user)
 
   //like handler
-  const handleLike = () => {
+  const handleLike = async () => {
     setLiked(!liked);
-    dispatch(likePost(postId));
+    await dispatch(likePost(postId));
+    
+    if(isAccount){
+      console.log("My post")
+    }else{
+      dispatch(getFollowingPost());
+    }
+
+    
   };
 
   useEffect(()=>{
@@ -44,7 +55,7 @@ const Post = ({
     })
     
 
-  },[likes, user]);
+  },[likes, user._id]);
 
   return (
     <div className="post">
@@ -83,8 +94,10 @@ const Post = ({
           cursor: "pointer",
           margin: "1vmax 2vmax",
         }}
+        onClick={()=> setLikesUser(!likesUser)}
+        disabled={likes.length === 0 ? true : false}
       >
-        <Typography>5 Likes</Typography>
+        <Typography>{likes.length} Likes</Typography>
       </button>
       <div className="postFooter">
         <Button onClick={handleLike}>
@@ -99,6 +112,24 @@ const Post = ({
           </Button>
         ) : null}
       </div>
+      <Dialog open={likesUser} onClose={()=>setLikesUser(!likesUser)}>
+        <div className="dialogBox">
+          {
+            likes.map((like)=>{
+              return(
+                <User
+                key={like._id}
+                userId={like._id}
+                name={like.name}
+                avatar={like.avatar.url}
+                
+                />
+              )
+            })
+          }
+        </div>
+
+      </Dialog>
     </div>
   );
 };

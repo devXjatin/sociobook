@@ -49,7 +49,7 @@ const Home = () => {
       })
     }
 
-  },[alert, error, message])
+  },[alert, error, message, likeError, dispatch])
 
   return loading === true || loadingUsers === true ? (
     <Loader />
