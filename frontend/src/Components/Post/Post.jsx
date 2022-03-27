@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCommentOnPost, likePost } from "../../Actions/Post";
 import { getFollowingPost } from "../../Actions/User";
 import User from "../User/User";
-
+import CommentCard from "../CommentCard/CommentCard"
 const Post = ({
   postId,
   caption,
@@ -48,9 +48,14 @@ const Post = ({
   };
 
   //comment handler
-  const addCommentHandler = (e) => {
+  const addCommentHandler = async(e) => {
     e.preventDefault();
-    dispatch(addCommentOnPost(postId, commentValue));
+    await dispatch(addCommentOnPost(postId, commentValue));
+    if (isAccount) {
+      console.log("My post");
+    } else {
+      dispatch(getFollowingPost());
+    }
   }
 
   useEffect(() => {
@@ -151,6 +156,23 @@ const Post = ({
             />
             <Button type="submit" variant="contained">Add</Button>
           </form>
+          {
+            comments.length>0?(
+              comments.map((item)=>{
+                return(
+                  <CommentCard
+                  userId={item.user._id} 
+                  name={item.user.name} 
+                  avatar={item.user.avatar.url} 
+                  comment={item.comment} 
+                  commentId={item._id}
+                   postId={postId}
+                   isAccount={isAccount}
+                  />
+                )
+              })
+            ):<Typography>No Comments Yet</Typography>
+          }
         </div>
       </Dialog>
     </div>
