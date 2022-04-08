@@ -54,3 +54,36 @@ export const addCommentOnPost = (id, comment) => async (dispatch) => {
     });
   }
 };
+
+//delete comment on post
+export const deleteCommentOnPost = (id, commentId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteCommentRequest",
+    });
+
+    const { data } = await axios.delete(
+      `/post/comment/${id}`,
+
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json",
+        },
+      },
+      {
+        commentId,
+      }
+    );
+
+    dispatch({
+      type: "deleteCommentSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteCommentFailure",
+      payload: error.response.data.message,
+    });
+  }
+};

@@ -209,6 +209,7 @@ exports.commentOnPost = async (req, res) => {
 
 //delete comment
 exports.deleteComment = async(req, res)=>{
+  console.log(req.body)
   try {
 
     const post = await Post.findById(req.params.id);
@@ -223,14 +224,14 @@ exports.deleteComment = async(req, res)=>{
     //check if owner wants to delete the comment
     if (post.owner.toString() === req.user._id.toString()) {
       //if commentID is not provided
-      if(req.body.commentID === undefined){
+      if(req.body.commentId === undefined){
         return res.status(400).json({
           success:false,
           message:"CommentID is not provided"
         })
       }
       post.comments.forEach((item, index)=>{
-        if(item._id.toString()=== req.body.commentID.toString()){
+        if(item._id.toString()=== req.body.commentId.toString()){
           post.comments.splice(index, 1);
         }
       })

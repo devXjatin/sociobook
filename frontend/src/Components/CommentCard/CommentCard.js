@@ -3,7 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./CommentCard.css";
 import { Delete } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCommentOnPost } from "../../Actions/Post";
+import { getFollowingPost } from "../../Actions/User";
 
 const CommentCard = ({
   userId,
@@ -15,10 +17,17 @@ const CommentCard = ({
   isAccount,
 }) => {
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
 
   const deleteCommentHandler = ()=>{
-      console.log('please delete this comment')
+     dispatch(deleteCommentOnPost(postId, commentId));
+     if(isAccount){
+      console.log('bring my post')
+    }else{
+      dispatch(getFollowingPost())
+    }
   }
+  
 
   return (
     <div className="commentUser">
@@ -31,7 +40,7 @@ const CommentCard = ({
         <Button onClick={deleteCommentHandler}>
           <Delete />
         </Button>
-      ) : userId === userId._id ? (
+      ) : userId === user ._id ? (
         <Button onClick={deleteCommentHandler}>
           <Delete />
         </Button>
