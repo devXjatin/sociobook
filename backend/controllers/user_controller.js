@@ -89,7 +89,7 @@ exports.login = async (req, res) => {
 exports.logout = async (req, res) => {
   res
     .status(200)
-    .cookie("tokken", null, { expires: new Date(Date.now()), httpOnly: true })
+    .cookie("token", null, { expires: new Date(Date.now()), httpOnly: true })
     .json({
       success: true,
       message: "Logged Out Successfully!",
@@ -255,7 +255,7 @@ exports.deleteProfile = async (req, res) => {
 //my profile
 exports.myProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate("posts");
+    const user = await User.findById(req.user._id).populate("posts followers following");
     res.status(200).json({
       success: true,
       user,
@@ -271,7 +271,7 @@ exports.myProfile = async (req, res) => {
 //get user profile
 exports.getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate("posts");
+    const user = await User.findById(req.params.id).populate("posts followers following");
     if (!user) {
       return res.status(404).json({
         success: false,

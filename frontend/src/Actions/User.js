@@ -32,6 +32,29 @@ export const loginUser = (email, password) => async (dispatch) => {
   }
 };
 
+//logout
+export const logoutUser = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "LogoutUserRequest",
+    });
+
+    const { data } = await axios.get("/user/logout")
+    console.log(data.success);
+    if (data.success === true) {
+      localStorage.setItem("token", "");
+    }
+    dispatch({
+      type: "LogoutUserSuccess",
+    });
+  } catch (error) {
+    dispatch({
+      type: "LogoutUserFailure",
+      payload: error,
+    });
+  }
+};
+
 //load user
 export const loadUser = () => async (dispatch) => {
   try {
