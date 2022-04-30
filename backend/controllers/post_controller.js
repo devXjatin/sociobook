@@ -18,11 +18,11 @@ exports.createPost = async (req, res) => {
     };
     const post = await Post.create(newPostData);
     const user = await User.findById(req.user._id);
-    user.posts.push(post._id);
+    user.posts.unshift(post._id);
     await user.save();
     res.status(201).json({
       success: true,
-      post,
+      message:"Post Created"
     });
   } catch (err) {
     res.status(500).json({

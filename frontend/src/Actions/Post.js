@@ -105,7 +105,7 @@ export const createNewPost = (caption, image) => async (dispatch) => {
       {
         headers: {
           "Content-type": "application/json",
-          "Authorization": localStorage.getItem("token"),
+          Authorization: localStorage.getItem("token"),
         },
       }
     );
@@ -117,6 +117,39 @@ export const createNewPost = (caption, image) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "newPostFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//update Caption
+export const updateCaption = (caption, id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updateCaptionRequest",
+    });
+
+    const { data } = await axios.put(
+      `/post/${id}`,
+      {
+        caption: caption
+      },
+
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+
+    dispatch({
+      type: "updateCaptionSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "updateCaptionFailure",
       payload: error.response.data.message,
     });
   }
