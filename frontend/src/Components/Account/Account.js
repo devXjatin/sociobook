@@ -31,7 +31,6 @@ const Account = () => {
 
   useEffect(() => {
     dispatch(getMyPosts());
-    // dispatch(loadUser())
   }, [dispatch]);
 
   useEffect(() => {
