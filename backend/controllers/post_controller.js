@@ -51,6 +51,9 @@ exports.deletePost = async (req, res) => {
       });
     }
 
+    //delete image from cloudinary
+    await cloudinary.v2.uploader.destroy(post.image.public_id);
+
     // Delete Post
     await post.remove();
 
