@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { addCommentOnPost, likePost, updateCaption, deletePost } from "../../Actions/Post";
-import { getFollowingPost, getMyPosts } from "../../Actions/User";
+import { getFollowingPost, getMyPosts, loadUser } from "../../Actions/User";
 import User from "../User/User";
 import CommentCard from "../CommentCard/CommentCard"
 const Post = ({
@@ -79,6 +79,7 @@ const Post = ({
   const deletePostHandler= async()=>{
     await dispatch(deletePost(postId));
     dispatch(getMyPosts());
+    dispatch(loadUser())
   }
 
   return (
