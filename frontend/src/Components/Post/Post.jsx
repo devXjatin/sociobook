@@ -76,8 +76,8 @@ const Post = ({
   }
 
   //delete Post
-  const deletePostHandler=()=>{
-    dispatch(deletePost(postId));
+  const deletePostHandler= async()=>{
+    await dispatch(deletePost(postId));
     dispatch(getMyPosts());
   }
 
@@ -127,7 +127,7 @@ const Post = ({
       > 
         <Typography>{likes.length} Likes</Typography>
       </button>
-      
+
       <div className="postFooter">
         <Button onClick={handleLike}>
           {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
