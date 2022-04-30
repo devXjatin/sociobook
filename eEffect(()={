@@ -1,0 +1,350 @@
+[33mcommit 2cb9cadc80fe3464c6a02618654a005a847bf060[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Apr 8 16:12:18 2022 +0530
+
+    delete comment controller
+
+[33mcommit c84e17f9c25f7eeac4d1f2b15d77ec860e566f6d[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sun Mar 27 18:36:26 2022 +0530
+
+    show comments
+
+[33mcommit 7a8e8094b62e9ab0f7b891c2743bafc38e1e8a42[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sun Mar 27 18:07:07 2022 +0530
+
+    add comment handler from UI
+
+[33mcommit 2c57b28ea7bafd6c3c3cba321bf1b95e79ea572b[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sun Mar 27 17:33:49 2022 +0530
+
+    show liked user dailogbox
+
+[33mcommit fd666ed747fa4509db116ac9c4bbf9f25c617a0a[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sun Mar 27 16:21:26 2022 +0530
+
+    set liked or disliked while loading
+
+[33mcommit b4275676f7a9021d1fcef01152e5c168be772089[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sun Mar 27 16:06:57 2022 +0530
+
+    post like and dislike
+
+[33mcommit b3e7ffea93471a228d7dbb09deaa66cd71d3c3ff[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sun Mar 27 15:13:15 2022 +0530
+
+    get all the users at frontend
+
+[33mcommit 9f98864e355db606d46e4bb819e5c9d6fe6a51d7[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:17:45 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit 89598c1c8e3ed63a1a8eff234d34ade46bc9ac97[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:17:32 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit a4565245eef79ad35ccd6a5195317d30307f97e6[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:17:20 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit 13c76160ff226635d7b54dd0258c315c2f83f0fa[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:17:02 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit 2f8f27fedb220f40cc1828d062cdc73ac42c5847[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:16:52 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit 0bfc440735cc028b47d8b6771637ba7d4a22a644[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:16:40 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit 579ff2d3302e00696709b8d1bb229b3d4d0c59f1[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:16:23 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit 8ec642e29da6c24870a3f4baf05a7465c5b0e77e[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:16:00 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit a78c82335d27a3a512a18b87ccb670642e6f015a[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Sat Mar 26 22:15:13 2022 +0530
+
+    configure home page and render post on home
+
+[33mcommit 0b660cf9a4c0685dbab062c3163d590f66b32fdd[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 23:48:27 2022 +0530
+
+    populate owner likes in post
+
+[33mcommit a95600cdf08d95f5c86cb1e4e26f4b943356df65[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 23:48:14 2022 +0530
+
+    populate owner likes in post
+
+[33mcommit 81aa7af28c486a623bdf8ebe9e47a27bd0ebe742[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 23:47:21 2022 +0530
+
+    populate owner likes in post
+
+[33mcommit d43144d1e0d29f076bc9cdf391bdb74d11e20c6d[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 23:27:32 2022 +0530
+
+    change post into reverse and get post at front end
+
+[33mcommit d37011046437c60330be1178cffcbfff1aab57fa[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 22:41:26 2022 +0530
+
+    post footer
+
+[33mcommit 855e27cea1f05391aa58155810e71acee5f7f8ee[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 22:19:18 2022 +0530
+
+    post component
+
+[33mcommit 8a2db325b5a9b45f33ea88ded261ca65d90e734b[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 21:53:24 2022 +0530
+
+    home page and authentication
+
+[33mcommit 1884ee0a10940103ecafddb8605cc2f1b38e48eb[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 14:29:37 2022 +0530
+
+    load user and set cookie in localstorage
+
+[33mcommit db12bdcb2bbc9d8bd19e668b9e2ef7d94b90f67a[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 25 02:39:30 2022 +0530
+
+    login user dispatch action
+
+[33mcommit 7f81649ea0bdeeb4aa95410f9f6b5393a5e980db[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 24 23:51:25 2022 +0530
+
+    frontend login page and setup redux
+
+[33mcommit d71e175ac24c69449a72857edd33bec9372330ef[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 17 21:14:27 2022 +0530
+
+    remove .env
+
+[33mcommit 76b987e14ba18dd650f2230f696b0905f116f955[m
+Merge: 9c045a8 fcec1d7
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 17 21:13:42 2022 +0530
+
+    Merge branch 'master' of https://github.com/devXjatin/sociobook
+
+[33mcommit 9c045a83467a1d74e4524b269d15b4a5343f3926[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 17 21:13:10 2022 +0530
+
+    remove .env
+
+[33mcommit fcec1d7f74dfeaee8f0cc652839c2bf24ef002e0[m
+Author: Jatin <61306011+devXjatin@users.noreply.github.com>
+Date:   Thu Mar 17 21:09:09 2022 +0530
+
+    Delete config.env
+
+[33mcommit 56f74b7ace5bf6c35416832fd291b7630b8f4811[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 17 21:08:11 2022 +0530
+
+    remove .env
+
+[33mcommit 868b7a2c29e71679671bfa8967552fcac090c271[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 17 21:07:03 2022 +0530
+
+    remove .env
+
+[33mcommit f2d5f13c2b69d99c0cd6f7fbcc0c5a59731cd298[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 17 21:02:35 2022 +0530
+
+    reset password
+
+[33mcommit 03807f5ba6752370099a72e33b3f2851e6ee7338[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Thu Mar 17 20:43:47 2022 +0530
+
+    delete comment route, reset password token route
+
+[33mcommit 82cadd756a96f96360980618e42c5877ce4bb1fb[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 23:52:30 2022 +0530
+
+    add or update comment
+
+[33mcommit d03a07ef4fd228564f9872b98aa04edee6761623[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 17:31:13 2022 +0530
+
+    get user profile and get all the users
+
+[33mcommit 9a7652334c1819cd48e858847b7146ab705cc420[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 17:21:01 2022 +0530
+
+    My profile
+
+[33mcommit 9f3d76253d1d985fd6c91b4ee13fea8181613ed2[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 16:44:05 2022 +0530
+
+    delete profile
+
+[33mcommit bc478a29d0635fd6b5b7e0def11afc28ea68b279[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 16:27:13 2022 +0530
+
+    post updated route and controller
+
+[33mcommit 2185c99d3743e459f086965ccc46df9ed77d8dd1[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 16:15:02 2022 +0530
+
+    update profile and password controller and route
+
+[33mcommit 3d5c9cee62901dbeb355d66ecc19ad373b67ac1c[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 16:12:57 2022 +0530
+
+    update profile and password controller and route
+
+[33mcommit 1daef87a922f837c96b96ce3cf6ffc9bfc683c92[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Wed Mar 16 15:08:08 2022 +0530
+
+    get the following posts
+
+[33mcommit ecc3f1ccf51f707fe0ce22c16071fb5436976d1e[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 11 00:32:41 2022 +0530
+
+    add follow route
+
+[33mcommit d3c8af35d149d90b8e0baaf17467b3598a291aa3[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 11 00:12:58 2022 +0530
+
+    add follow route
+
+[33mcommit 6bd72f079ece75ff6cd2ca21aeb0901f11c4ac62[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Mon Mar 7 14:22:57 2022 +0530
+
+    delete post route
+
+[33mcommit b4df6fd939a393d38327977ef80b5b581010c8f1[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Fri Mar 4 00:21:19 2022 +0530
+
+    like and unlike handler
+
+[33mcommit 375030d8e8a3249001ffe020acb81ea5fd37f68e[m
+Merge: 776fbc6 5e08aa5
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 20:40:46 2022 +0530
+
+    login and post route created
+
+[33mcommit 776fbc6e3de762b302b499f3891765655f010275[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 20:36:57 2022 +0530
+
+    login and post route created
+
+[33mcommit ef22dc4f2305aac8ee7582523cd009784c86c9fa[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 12:44:15 2022 +0530
+
+    register route
+
+[33mcommit 5e08aa5c63d212cd9dd26b1c28e17b088b36e261[m
+Author: Jatin <61306011+devXjatin@users.noreply.github.com>
+Date:   Tue Mar 1 04:59:52 2022 +0530
+
+    Delete config.env
+
+[33mcommit b6f9fbc41bb1a71595594f2b40e8a6cbbc4e677c[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 04:58:32 2022 +0530
+
+    config file
+
+[33mcommit edb3deec47039c72bc1cc4891b57bc9adfb8ddd5[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 04:54:19 2022 +0530
+
+    config file
+
+[33mcommit 5d16e618ac2020f4099bebbf071b116aab81df9a[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 04:47:10 2022 +0530
+
+    config file
+
+[33mcommit 04dffc56a4e442fa0f43eeb4cba5fc4e12761dc1[m
+Merge: ed43fa7 a3c03a4
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 04:45:43 2022 +0530
+
+    Merge branch 'master' of https://github.com/devXjatin/sociobook
+
+[33mcommit ed43fa72cdd483198c37abdab72eabfbfa5c49f8[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 04:44:07 2022 +0530
+
+    a
+
+[33mcommit a3c03a48995204a351eac958e2372d947daf340b[m
+Author: Jatin <61306011+devXjatin@users.noreply.github.com>
+Date:   Tue Mar 1 04:27:50 2022 +0530
+
+    Delete node_modules directory
+
+[33mcommit 0971bc8f0e0f3a9f9711001367ce0217d4e08539[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 04:27:09 2022 +0530
+
+    git ignore
+
+[33mcommit 7fbcc0f693a2a234cf78bb0d9f984267ea9847aa[m
+Author: devXjatin <jatin13280@gmail.com>
+Date:   Tue Mar 1 04:18:37 2022 +0530
+
+    first commit

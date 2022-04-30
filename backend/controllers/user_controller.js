@@ -307,6 +307,28 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+//get my post
+exports.myPosts = async (req, res) => {
+  try {
+    const users = await User.findById(req.user._id);
+    const posts=[];
+    for(let i=0;i<users.posts.length;i++){
+      const post = await Post.findById(users.posts[i]).populate("owner likes comments.user");
+      posts.push(post);
+    }
+    res.status(200).json({
+      success: true,
+      posts,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+
+}
+
 //forgot password
 exports.forgotPassword = async (req, res) => {
   try {

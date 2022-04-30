@@ -25,15 +25,19 @@ router.route("/update/profile").put(passport.authenticate("jwt", {session:false}
 //get all the users
 router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getUsers);
 
+//my post
+router.route("/my/posts").get(passport.authenticate("jwt", {session:false}), userController.myPosts);
+
 //delete profile
 router.route("/delete/me").delete(passport.authenticate("jwt", {session:false}), userController.deleteProfile);
+
+
 
 //my profile
 router.route("/me").get(passport.authenticate("jwt", {session:false}), userController.myProfile);
 
 //get User profile
 router.route("/:id").get(passport.authenticate("jwt", {session:false}), userController.getUserProfile);
-
 
 
 //forgot password

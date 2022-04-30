@@ -44,7 +44,6 @@ export const loadUser = () => async (dispatch) => {
         Authorization: localStorage.getItem("token"),
       },
     });
-    console.log(data);
 
     dispatch({
       type: "LoadUserSuccess",
@@ -68,6 +67,7 @@ export const getFollowingPost = () => async (dispatch) => {
     const { data } = await axios.get("/post/posts", {
       headers: { Authorization: localStorage.getItem("token") },
     });
+    // console.log(data)
 
     dispatch({
       type: "postOfFollowingSuccess",
@@ -76,6 +76,28 @@ export const getFollowingPost = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "postOfFollowingFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//get my post
+export const getMyPosts = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "myPostsRequest",
+    });
+
+    const { data }  = await axios.get("/user/my/posts", {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+    dispatch({
+      type: "myPostsSuccess",
+      payload : data.posts,
+    });
+  } catch (error) {
+    dispatch({
+      type: "myPostsFailure",
       payload: error.response.data.message,
     });
   }
