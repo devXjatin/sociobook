@@ -101,9 +101,11 @@ const Post = ({
             width: "3vmax",
           }}
         />
+
         <Link to={`/user/${ownerId}`}>
           <Typography fontWeight={700}>{ownerName}</Typography>
         </Link>
+
         <Typography
           fontWeight={100}
           color="rgba(0,0,0,0.582)"
@@ -125,6 +127,7 @@ const Post = ({
       > 
         <Typography>{likes.length} Likes</Typography>
       </button>
+      
       <div className="postFooter">
         <Button onClick={handleLike}>
           {liked ? <Favorite style={{ color: "red" }} /> : <FavoriteBorder />}
