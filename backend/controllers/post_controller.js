@@ -1,14 +1,18 @@
 const Post = require("../model/post");
 const User = require("../model/user");
-
+const cloudinary = require('cloudinary')
 exports.createPost = async (req, res) => {
   try {
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.image,{
+      folder:'posts',
+    });
+
     const newPostData = {
       caption: req.body.caption,
       image: {
-        //Todo
-        public_id: "req.body.public_id",
-        url: "req.body.url",
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
       },
       owner: req.user._id,
     };

@@ -7,6 +7,7 @@ import Home from "./Components/Home/Home";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./Actions/User";
 import Account from "./Components/Account/Account";
+import NewPost from "./Components/NewPost/NewPost";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={isAuthenticated?<Home/>:<Login/>} />
         <Route path="/account" element={isAuthenticated?<Account/>:<Login/>} />
+        <Route path="/newpost" element={isAuthenticated?<NewPost/>:<Login/>} />
       </Routes>
     </Router>
   );
