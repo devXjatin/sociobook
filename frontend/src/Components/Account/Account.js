@@ -7,9 +7,11 @@ import Post from "../Post/Post";
 import { Typography, Avatar, Button, Dialog } from "@mui/material";
 import { Link } from "react-router-dom";
 import User from "../User/User";
+import {useAlert} from "react-alert"
 
 const Account = () => {
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   const [followersToggle, setFollowersToggle] = useState(false);
 
@@ -21,8 +23,9 @@ const Account = () => {
 
   const { error: likeError, message } = useSelector((state) => state.like);
 
-  const logoutHandler=()=>{
-    dispatch(logoutUser())
+  const logoutHandler= async()=>{
+    await dispatch(logoutUser())
+    alert.success("Logged Out Successfully")
   }
 
 

@@ -50,7 +50,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    let user = await User.findOne({ email }).select("+password");
+    let user = await User.findOne({ email }).select("+password").populate("posts followers following"); ;
     if (!user) {
       return res.status(400).json({
         success: false,

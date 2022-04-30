@@ -42,7 +42,7 @@ export const logoutUser = () => async (dispatch) => {
     const { data } = await axios.get("/user/logout")
     console.log(data.success);
     if (data.success === true) {
-      localStorage.setItem("token", "");
+      localStorage.clear();
     }
     dispatch({
       type: "LogoutUserSuccess",
