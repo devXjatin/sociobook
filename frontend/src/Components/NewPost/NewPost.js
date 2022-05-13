@@ -3,6 +3,7 @@ import "./NewPost.css";
 import { Typography, Button } from "@mui/material";
 import {useSelector, useDispatch} from "react-redux"
 import { createNewPost } from "../../Actions/Post";
+import {loadUser} from '../../Actions/User';
 import {useAlert} from "react-alert"
 const NewPost = () => {
   const [image, setImage] = useState(null);
@@ -29,9 +30,10 @@ const NewPost = () => {
 
     }
 
-    const submitHandler=(e)=>{
+    const submitHandler=async (e)=>{
       e.preventDefault()
-      dispatch(createNewPost(caption, image));
+      await dispatch(createNewPost(caption, image));
+      dispatch(loadUser());
         
     }
 

@@ -2,11 +2,13 @@ const User = require("../model/user");
 const Post = require("../model/post");
 const { sendEmail } = require("../middleware/nodemailer");
 const crypto = require("crypto");
+const cloudinary = require("cloudinary");
 
 //register user
 exports.register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    
+    const { name, email, password, avatar } = req.body;
 
     let user = await User.findOne({ email });
 
@@ -18,12 +20,17 @@ exports.register = async (req, res) => {
       });
     }
 
+    //upload image to cloudinary
+    const myCloud = await cloudinary.v2.uploader.upload(avatar,{
+      folder: "avatars",
+    })
+
     //create user
     user = await User.create({
       name,
       email,
       password,
-      avatar: { public_id: "sample_id", url: "sample_url" },
+      avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
     });
     await user.save();
     let token = user.generateToken();

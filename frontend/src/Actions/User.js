@@ -32,6 +32,40 @@ export const loginUser = (email, password) => async (dispatch) => {
   }
 };
 
+
+//register User
+export const registerUser = (name, email, password, avatar) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "RegisterRequest",
+    });
+
+    const { data } = await axios.post(
+      "/user/register",
+      {name, email, password,avatar },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(data.success);
+    if (data.success === true) {
+      localStorage.setItem("token", data.token);
+    }
+
+    dispatch({
+      type: "RegisterSuccess",
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: "RegisterFailure",
+      payload: error,
+    });
+  }
+};
+
 //logout
 export const logoutUser = () => async (dispatch) => {
   try {
