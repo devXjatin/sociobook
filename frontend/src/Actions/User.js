@@ -61,7 +61,7 @@ export const registerUser =
     } catch (error) {
       dispatch({
         type: "RegisterFailure",
-        payload: error,
+        payload: error.response.data.message,
       });
     }
   };
@@ -297,6 +297,72 @@ export const getMyPosts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "myPostsFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//get User Posts
+export const getUsersPosts = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "userPostsRequest",
+    });
+
+    const { data } = await axios.get(`/user/userposts/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+    dispatch({
+      type: "userPostsSuccess",
+      payload: data.posts,
+    });
+  } catch (error) {
+    dispatch({
+      type: "userPostsFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//get user profile
+export const getUsersProfile = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "userProfileRequest",
+    });
+
+    const { data } = await axios.get(`/user/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+    dispatch({
+      type: "userProfileSuccess",
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: "userProfileFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//Follow and Unfollow user
+export const followAndUnfollowUser = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "followUserRequest",
+    });
+
+    const { data } = await axios.get(`/user/follow/${id}`, {
+      headers: { Authorization: localStorage.getItem("token") },
+    });
+    dispatch({
+      type: "followUserSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "followUserFailure",
       payload: error.response.data.message,
     });
   }

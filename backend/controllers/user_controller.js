@@ -253,6 +253,29 @@ exports.deleteProfile = async (req, res) => {
       await follows.save();
     }
 
+    //removing all comments of the user from all posts
+    const allPosts = await Post.find();
+    for (let i = 0; i < allPosts.length; i++) {
+      const post = await Post.findById(allPosts[i]._id);
+      for(let j = 0; j < allPosts.comments.length; j++){
+        if(post.comments[j].user===userID){
+          post.comments.splice(j,1);
+        }
+      }
+      await post.save();
+    }
+
+    //removing all likes of the user from all posts
+    for (let i = 0; i < allPosts.length; i++) {
+      const post = await Post.findById(allPosts[i]._id);
+      for(let j = 0; j < allPosts.likes.length; j++){
+        if(post.likes[j].user===userID){
+          post.likes.splice(j,1);
+        }
+      }
+      await post.save();
+    }
+
     res.status(200).json({
       success: true,
       message: "Profile Deleted",
@@ -324,6 +347,28 @@ exports.getUsers = async (req, res) => {
 exports.myPosts = async (req, res) => {
   try {
     const users = await User.findById(req.user._id);
+    const posts=[];
+    for(let i=0;i<users.posts.length;i++){
+      const post = await Post.findById(users.posts[i]).populate("owner likes comments.user");
+      posts.push(post);
+    }
+    res.status(200).json({
+      success: true,
+      posts,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+
+}
+
+//Get Users Posts
+exports.getUserPosts = async (req, res) => {
+  try {
+    const users = await User.findById(req.params.id);
     const posts=[];
     for(let i=0;i<users.posts.length;i++){
       const post = await Post.findById(users.posts[i]).populate("owner likes comments.user");

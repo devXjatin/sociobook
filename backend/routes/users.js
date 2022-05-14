@@ -28,10 +28,13 @@ router.route("/users").get(passport.authenticate("jwt", {session:false}), userCo
 //my post
 router.route("/my/posts").get(passport.authenticate("jwt", {session:false}), userController.myPosts);
 
+
+
 //delete profile
 router.route("/delete/me").delete(passport.authenticate("jwt", {session:false}), userController.deleteProfile);
 
-
+//user posts
+router.route("/userposts/:id").get(passport.authenticate("jwt", {session:false}), userController.getUserPosts);
 
 //my profile
 router.route("/me").get(passport.authenticate("jwt", {session:false}), userController.myProfile);
