@@ -40,7 +40,7 @@ const CommentCard = ({
         <Button onClick={deleteCommentHandler}>
           <Delete />
         </Button>
-      ) : userId === user ._id ? (
+      ) : userId === user._id ? (
         <Button onClick={deleteCommentHandler}>
           <Delete />
         </Button>

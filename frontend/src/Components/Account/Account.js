@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Account.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyPosts , loadUser, logoutUser} from "../../Actions/User";
+import { getMyPosts ,logoutUser} from "../../Actions/User";
 import Loader from "../Loader/Loader";
 import Post from "../Post/Post";
 import { Typography, Avatar, Button, Dialog } from "@mui/material";
@@ -52,7 +52,7 @@ const Account = () => {
         type: "clearMessage",
       });
     }
-  }, [error, message, likeError, dispatch]);
+  }, [error, message, likeError, dispatch, alert]);
 
   return loading === true || userLoading === true ? (
     <Loader />
@@ -104,7 +104,7 @@ const Account = () => {
           <Typography>{user.posts.length}</Typography>
         </div>
         <Button variant="contained" onClick={logoutHandler}>Logout</Button>
-        <Link to="/user/update/profile">Edit Profile</Link>
+        <Link to="/update/profile">Edit Profile</Link>
         <Link to="/user/update/password">Change Password</Link>
         <Button variant="text" style={{ color: "red", margin: "2vmax" }}>
           Delete My Profile

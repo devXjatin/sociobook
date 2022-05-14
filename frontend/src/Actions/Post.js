@@ -64,16 +64,15 @@ export const deleteCommentOnPost = (id, commentId) => async (dispatch) => {
 
     const { data } = await axios.delete(
       `/post/comment/${id}`,
-
+      
       {
         headers: {
-          Authorization: localStorage.getItem("token"),
           "Content-type": "application/json",
+          Authorization: localStorage.getItem("token"),
         },
-      },
-      {
-        commentId,
-      }
+      },{ commentId },
+      
+      
     );
 
     dispatch({
@@ -132,7 +131,7 @@ export const updateCaption = (caption, id) => async (dispatch) => {
     const { data } = await axios.put(
       `/post/${id}`,
       {
-        caption: caption
+        caption: caption,
       },
 
       {
@@ -156,21 +155,18 @@ export const updateCaption = (caption, id) => async (dispatch) => {
 };
 
 //delete post
-export const deletePost= (id) => async (dispatch) => {
+export const deletePost = (id) => async (dispatch) => {
   try {
     dispatch({
       type: "deletePostRequest",
     });
 
-    const { data } = await axios.delete(
-      `/post/${id}`,
-      {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    const { data } = await axios.delete(`/post/${id}`, {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+    });
 
     dispatch({
       type: "deletePostSuccess",

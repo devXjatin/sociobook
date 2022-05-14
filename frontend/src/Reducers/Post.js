@@ -3,7 +3,6 @@ import {createReducer} from "@reduxjs/toolkit"
 const initialState = {};
 
 export const likeReducer = createReducer(initialState, {
-
     likeRequest: (state) => {
         state.loading = true
     },
@@ -58,6 +57,17 @@ export const likeReducer = createReducer(initialState, {
         state.error = action.payload
     },
     
+    updateProfileRequest: (state) => {
+        state.loading = true
+    },
+    updateProfileSuccess: (state, action) => {
+        state.loading = false;
+        state.message = action.payload
+    },
+    updateProfileFailure: (state, action) => {
+        state.loading = false
+        state.error = action.payload
+    },
     deletePostRequest: (state) => {
         state.loading = true
     },

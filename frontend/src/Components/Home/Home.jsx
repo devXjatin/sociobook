@@ -18,7 +18,6 @@ const Home = () => {
   const {
     users,
     loading: loadingUsers,
-    error: errorUsers,
   } = useSelector((state) => state.allUsers);
 
   const {error:likeError, message} = useSelector((state)=>state.like);

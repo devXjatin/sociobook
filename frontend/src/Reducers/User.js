@@ -33,6 +33,20 @@ export const userReducer = createReducer(initialState, {
     state.error = action.payload;
     state.isAuthenticated = false;
   },
+  updateProfileRequest: (state) => {
+    state.loading = true;
+  },
+  updateProfileSuccess: (state, action) => {
+    state.loading = false;
+    state.user = action.payload;
+    state.isAuthenticated = true;
+
+  },
+  updateProfileFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+    state.isAuthenticated = false;
+  },
   LoadUserRequest: (state) => {
     state.loading = true;
   },
@@ -108,3 +122,4 @@ export const allUsersReducer = createReducer({}, {
     state.error = null
   },
 });
+

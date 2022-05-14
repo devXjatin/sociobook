@@ -66,6 +66,36 @@ export const registerUser = (name, email, password, avatar) => async (dispatch) 
   }
 };
 
+//update user profile
+export const updateProfile = (name, email,avatar) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updateProfileRequest",
+    });
+
+    const { data }  = await axios.put(
+      "/user/update/profile",
+      {name, email,avatar},
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        
+        },
+      }
+    );
+    dispatch({
+      type: "updateProfileSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "updateProfileFailure",
+      payload: error.response.data.message
+    });
+  }
+};
+
 //logout
 export const logoutUser = () => async (dispatch) => {
   try {
