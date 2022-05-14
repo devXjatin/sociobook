@@ -44,7 +44,7 @@ router.route("/:id").get(passport.authenticate("jwt", {session:false}), userCont
 router.route("/forgot/password").post(userController.forgotPassword);
 
 //reset password 
-router.route("/password/reset/:token").put(userController.resetPassword);
+router.route("/reset/password/:token").put(userController.resetPassword);
 
 
 

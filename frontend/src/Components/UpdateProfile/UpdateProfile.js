@@ -4,7 +4,6 @@ import { Typography, Button, Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, updateProfile } from "../../Actions/User";
 import { useAlert } from "react-alert";
-import Loader from "../Loader/Loader";
 const UpdateProfile = () => {
     const { error, user } = useSelector((state) => state.user);
     const {

@@ -3,7 +3,7 @@ import "./Login.css";
 import { Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux"
-import { getMyPosts, loginUser } from "../../Actions/User";
+import {loginUser } from "../../Actions/User";
 import { useAlert } from "react-alert";
 const Login = () => {
   const [email, setEmail] = useState();
@@ -19,15 +19,17 @@ const Login = () => {
   };
 
    useEffect(()=>{
-    // if(error){
-    //   alert.error(error);
-    //   dispatch({type:"clearErrors"})
-    // }
+
+    if(error){
+      alert.error(error);
+      dispatch({type:"clearErrors"})
+    }
+
     if(message){
       alert.success(message);
       dispatch({type:"clearMessage"})
     }
-  },[dispatch,alert, message])
+  },[dispatch,alert,error, message])
 
   return (
     <div className="login">
@@ -50,7 +52,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <Link to="/user/forgot/password">
+        <Link to="/forgot/password">
           <Typography>Forgot Password?</Typography>
         </Link>
 
