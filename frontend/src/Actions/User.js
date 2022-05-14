@@ -98,8 +98,6 @@ export const updateProfile = (name, email,avatar) => async (dispatch) => {
 
 
 //update password
-
-//update user profile
 export const updatePassword = (oldPassword, newPassword) => async (dispatch) => {
   try {
     dispatch({
@@ -124,6 +122,33 @@ export const updatePassword = (oldPassword, newPassword) => async (dispatch) => 
   } catch (error) {
     dispatch({
       type: "updatePasswordFailure",
+      payload: error.response.data.message
+    });
+  }
+};
+
+//delete profile
+export const deleteMyProfile = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteProfileRequest",
+    });
+
+    const { data }  = await axios.delete(
+      "/user/delete/me",
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    dispatch({
+      type: "deleteProfileSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteProfileFailure",
       payload: error.response.data.message
     });
   }

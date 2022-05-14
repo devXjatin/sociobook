@@ -11,22 +11,23 @@ const Login = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const {error} = useSelector((state) => state.user);
+  const {message} = useSelector((state) => state.like);
 
   const loginHandler = (e) => {
     e.preventDefault();
     dispatch(loginUser(email,password));
   };
 
-  useEffect(()=>{
-    dispatch(getMyPosts());
-  })
-
-  useEffect(()=>{
-    if(error){
-      alert.error(error);
-      dispatch({type:"clearErrors"})
+   useEffect(()=>{
+    // if(error){
+    //   alert.error(error);
+    //   dispatch({type:"clearErrors"})
+    // }
+    if(message){
+      alert.success(message);
+      dispatch({type:"clearMessage"})
     }
-  },[dispatch,error,alert])
+  },[dispatch,alert, message])
 
   return (
     <div className="login">

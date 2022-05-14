@@ -226,7 +226,7 @@ exports.deleteProfile = async (req, res) => {
     const followers = user.followers;
     const userID = user._id;
     const following = user.following;
-
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id)
     await user.remove();
 
     //logout after deleting the profile
@@ -235,6 +235,7 @@ exports.deleteProfile = async (req, res) => {
     //remove post associated with deleting user
     for (let i = 0; i < posts.length; i++) {
       const post = await Post.findById(posts[i]);
+      await cloudinary.v2.uploader.destroy(post.image.public_id);
       await post.remove();
     }
 

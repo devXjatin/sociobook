@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Account.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyPosts ,logoutUser} from "../../Actions/User";
+import { deleteMyProfile, getMyPosts ,logoutUser} from "../../Actions/User";
 import Loader from "../Loader/Loader";
 import Post from "../Post/Post";
 import { Typography, Avatar, Button, Dialog } from "@mui/material";
@@ -28,6 +28,10 @@ const Account = () => {
     alert.success("Logged Out Successfully")
   }
 
+  const deleteProfileHandler = async()=>{
+   await dispatch(deleteMyProfile());
+    dispatch(logoutUser());
+  }
 
   useEffect(() => {
     dispatch(getMyPosts());
@@ -106,7 +110,7 @@ const Account = () => {
         <Button variant="contained" onClick={logoutHandler}>Logout</Button>
         <Link to="/update/profile">Edit Profile</Link>
         <Link to="/update/password">Change Password</Link>
-        <Button variant="text" style={{ color: "red", margin: "2vmax" }}>
+        <Button variant="text" style={{ color: "red", margin: "2vmax" }} onClick={deleteProfileHandler}>
           Delete My Profile
         </Button>
 
