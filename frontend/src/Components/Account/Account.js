@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Account.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteMyProfile, getMyPosts ,logoutUser} from "../../Actions/User";
+import { deleteMyProfile, getMyPosts ,loadUser,logoutUser} from "../../Actions/User";
 import Loader from "../Loader/Loader";
 import Post from "../Post/Post";
 import { Typography, Avatar, Button, Dialog } from "@mui/material";
@@ -35,6 +35,7 @@ const Account = () => {
 
   useEffect(() => {
     dispatch(getMyPosts());
+    dispatch(loadUser())
   }, [dispatch]);
 
   useEffect(() => {

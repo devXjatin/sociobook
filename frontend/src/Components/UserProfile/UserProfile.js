@@ -37,7 +37,6 @@ const UserProfile = () => {
   useEffect(() => {
     dispatch(getUsersPosts(params.id));
     dispatch(getUsersProfile(params.id));
-    
   }, [dispatch, params.id]);
 
   useEffect(() => {

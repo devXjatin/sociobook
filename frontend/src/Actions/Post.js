@@ -57,6 +57,7 @@ export const addCommentOnPost = (id, comment) => async (dispatch) => {
 
 //delete comment on post
 export const deleteCommentOnPost = (id, commentId) => async (dispatch) => {
+  console.log(commentId);
   try {
     dispatch({
       type: "deleteCommentRequest",
@@ -64,15 +65,17 @@ export const deleteCommentOnPost = (id, commentId) => async (dispatch) => {
 
     const { data } = await axios.delete(
       `/post/comment/${id}`,
-      
+     
       {
         headers: {
-          "Content-type": "application/json",
           Authorization: localStorage.getItem("token"),
         },
-      },{ commentId },
-      
-      
+      },
+      {
+        commentId,
+      },
+
+     
     );
 
     dispatch({

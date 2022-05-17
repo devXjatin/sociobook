@@ -369,13 +369,13 @@ export const followAndUnfollowUser = (id) => async (dispatch) => {
 };
 
 //get all users
-export const getAllUsers = () => async (dispatch) => {
+export const getAllUsers = (name = "") => async (dispatch) => {
   try {
     dispatch({
       type: "allUsersRequest",
     });
 
-    const { data } = await axios.get("/user/users", {
+    const { data } = await axios.get(`/user/users?name=${name}`, {
       headers: { Authorization: localStorage.getItem("token") },
     });
 

@@ -23,7 +23,7 @@ router.route("/update/password").put(passport.authenticate("jwt", {session:false
 router.route("/update/profile").put(passport.authenticate("jwt", {session:false}), userController.updateProfile);
 
 //get all the users
-router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getUsers);
+router.route("/users").get(passport.authenticate("jwt", {session:false}), userController.getAllUsers);
 
 //my post
 router.route("/my/posts").get(passport.authenticate("jwt", {session:false}), userController.myPosts);
