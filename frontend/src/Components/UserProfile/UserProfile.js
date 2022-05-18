@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {followAndUnfollowUser, getUsersPosts, getUsersProfile, loadUser } from "../../Actions/User";
+import {followAndUnfollowUser, getUsersPosts, getUsersProfile} from "../../Actions/User";
 import Loader from "../Loader/Loader";
 import Post from "../Post/Post";
 import { Typography, Avatar, Button, Dialog } from "@mui/material";
