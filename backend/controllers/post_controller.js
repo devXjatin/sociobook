@@ -1,5 +1,5 @@
-const Post = require("../model/post");
-const User = require("../model/user");
+const Post = require("../model/Post");
+const User = require("../model/User");
 const cloudinary = require('cloudinary')
 exports.createPost = async (req, res) => {
   try {
