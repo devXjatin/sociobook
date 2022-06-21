@@ -2,7 +2,7 @@ const passport = require('passport')
 const JWTStrategy = require('passport-jwt').Strategy
 const ExtractJWT = require('passport-jwt').ExtractJwt
 const User = require('../model/user')
-require("dotenv").config({path:"./config/config.env"})
+require("dotenv").config({path:"./env/config.env"})
 let opts ={
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey : process.env.JWT_SECRET
