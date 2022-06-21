@@ -4,10 +4,10 @@
   "description": "Social Media Application",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/index.js",
+    "start": "node index.js",
     "dev": "nodemon backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Jatin",
   "license": "ISC",
